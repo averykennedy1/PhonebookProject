@@ -1,0 +1,75 @@
+public class Contacts {
+	
+	String name;
+	String city;
+	String state;
+	String firstName;
+	String lastName;
+	String address;
+	String phone;
+	boolean active = false;
+	
+	public void setName(String inputName) {
+		name = inputName;
+	}
+	
+	public void setCity(String inputCity) {
+		city = inputCity;
+	}
+	
+	public void setState(String inputState) {
+		state = inputState;
+	}
+	
+	public void setFirstName(String inputFirstName) {
+		firstName = inputFirstName;
+	}
+	
+	public void setLastName(String inputLastName) {
+		lastName = inputLastName;
+	}
+	
+	public void setActive(boolean act) {
+		active = act;
+	}
+	
+	public void setAddress(String add) {
+		address = add;
+	}
+	
+	public void setPhoneNumber(String number) {
+		phone = number;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public String getPhoneNumber() {
+		return phone;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+}
