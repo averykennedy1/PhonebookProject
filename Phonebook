@@ -1,0 +1,125 @@
+package phonebook;
+
+import java.util.Scanner;
+
+public class Phonebook {
+
+	private static Scanner input = new Scanner(System.in);
+	
+	private static Contacts[] contacts = new Contacts[3];
+	private static int contactCount = 0;
+	
+	public static void main(String[] args) {
+		boolean quit = false;
+		Introduction();
+		
+			while (!quit) {
+				menu();
+				int choice = input.nextInt();
+				input.nextLine();
+				
+				switch(choice) {
+				case 0:
+					System.out.println("Thank you for using my program!");
+					quit = true;
+					break;
+				case 1: 
+					printContacts();
+					break;
+				case 2:
+					addContact();
+					break;
+				case 3:
+					removeContact();
+					break;
+				case 4:
+					searchContacts();
+					break;
+				default:
+					System.out.println("Please type in a number 0-5!");
+					break;
+				}
+			}
+	}
+	
+	private static void printContacts() {
+		for (int i = 0; i < contactCount; i++) {
+			if (contacts[i].isActive()) {
+				System.out.println("Contacts[" + i + "]: " + 
+									contacts[i].getName() + ", " + 
+									contacts[i].getAddress() + ", " + 
+									contacts[i].getPhoneNumber());
+			}
+		}
+	}
+	
+	private static void addContact() {
+		System.out.println("Enter the contact information:");
+		String text = input.nextLine();
+		Contacts contact = new Contacts();
+		String[] fields = text.split(",");
+		String[] names = fields[0].split(" ");
+		contact.setName(fields[0].trim());
+		contact.setAddress(fields[1].trim() + ", " + fields[2].trim() + ", " + fields[3].trim() + ", " + fields[4].trim());
+		contact.setCity(fields[2].trim());
+		contact.setState(fields[3].trim());
+		contact.setFirstName(names[0]);
+		contact.setLastName(names[names.length - 1]);
+		contact.setPhoneNumber(fields[5].trim());
+		contact.setActive(true);
+		contacts[contactCount] = contact;
+		contactCount++;
+	}
+	
+	private static void removeContact() {
+		System.out.println("Enter the telephone number of the contact you would like to remove:");
+		String phoneNumber = input.nextLine();
+		
+		int index = searchContactsByPhoneNumber(phoneNumber.trim());
+		if (index >= 0) {
+			contacts[index].setActive(false);
+		}
+	}
+	
+	private static int searchContactsByPhoneNumber(String phoneNumber) {
+		for (int i = 0; i < contactCount; i++) {
+			if (contacts[i].getPhoneNumber().equals(phoneNumber)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private static void searchContacts() {
+		System.out.println("Enter the search term:");
+		String searchTerm = input.nextLine().trim();
+		for (int i = 0; i < contactCount; i++) {
+			if (contacts[i].isActive()) {
+				if (contacts[i].getPhoneNumber().equals(searchTerm) || contacts[i].getName().equals(searchTerm) ||
+						contacts[i].getCity().equals(searchTerm) || contacts[i].getState().equals(searchTerm) ||
+						contacts[i].getFirstName().equals(searchTerm) || contacts[i].getLastName().equals(searchTerm)
+					) {
+					System.out.println("Contacts[" + i + "]: " + 
+							contacts[i].getName() + ", " + 
+							contacts[i].getAddress() + ", " + 
+							contacts[i].getPhoneNumber());
+				}
+			}
+		}
+	}
+
+	
+	private static void Introduction() {
+		System.out.println("Welcome to Avery's Awesome Phonebook!");
+	}
+	
+	private static void menu() {
+		System.out.println("Please enter the number of the command you would like to run!");
+		System.out.println("If you would like to update a contact, remove the contact then add a new one!");
+		System.out.println("Enter 0 to exit the program!");
+		System.out.println("Enter 1 to display all contacts!");
+		System.out.println("Enter 2 to add a new contact!");
+		System.out.println("Enter 3 to remove a contact!");
+		System.out.println("Enter 4 to search through your contacts!");
+	}
+}
